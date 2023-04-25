@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="handle-form.js" type="module" defer></script>
+    <script src="render-content.js" type="module" defer></script>
+
+    <title>Buscador de Gasolineras</title>
+  </head>
+  <body>
+    <header>
+      <a href="/index.html">
+        <img class="logo" src="/images/logo.png" alt="logo fuel assistant"
+      /></a>
+      <h1>Buscador de Gasolineras en España</h1>
+      <button>
+        <a href="/fuel-calculator/index-fuel-calculator.html"
+          >Calcula tus consumos medios y estima tus gastos</a
+        >
+      </button>
+      <h2 style="color: red; text-align: center">FASE ALFA</h2>
+      <hr />
+    </header>
+    <main>
+      <section id="forms">
+        <form id="selectionForm">
+          <fieldset>
+            <legend>Selección provincia</legend>
+            <label for="selectProvinces"
+              >Seleccione la provincia* (obligatorio)</label
+            ><br />
+            <select name="selectProvince" id="selectProvince">
+              <!-- <option value="">Seleccione la provincia</option> -->
+              <option value="PONTEVEDRA">Pontevedra</option>
+              <option value="CORUÑA (A)">A Coruña</option>
+              <option value="BARCELONA">Barcelona</option>
+              <option value="GIRONA">Girona</option>
+              <option value="LUGO">Lugo</option>
+              <option value="MADRID">Madrid</option>
+            </select>
+          </fieldset>
+
+          <fieldset>
+            <legend>Selección municipio</legend>
+            <label for="cities">Seleccione el municipio</label><br />
+            <select name="selectCity" id="selectCity">
+              <option value="">Seleccione el municipio</option>
+              <option value="Barcelona">Barcelona</option>
+              <option value="Brunete">Brunete (Madrid)</option>
+              <option value="Caldas de Reis">
+                Caldas de Reis (Pontevedra)
+              </option>
+              <option value="Cerceda">Cerceda (A Coruña)</option>
+              <option value="Girona">Girona</option>
+              <option value="Lugo">Lugo</option>
+              <option value="Madrid">Madrid</option>
+              <option value="Pontevedra">Pontevedra</option>
+              <option value="Sabadell">Sabadell (Barcelona)</option>
+              <option value="Sanxenxo">Sanxenxo (Pontevedra)</option>
+              <option value="Vilagarcía de Arousa">
+                Vilagarcía de Arousa (Pontevedra)
+              </option>
+            </select>
+          </fieldset>
+
+          <fieldset>
+            <label for="postalCode">Búsqueda por Código Postal:</label><br />
+            <input
+              type="text"
+              id="postalCode"
+              name="postalCode"
+              placeholder="01001"
+            /><br />
+          </fieldset>
+
+          <fieldset>
+            <legend>Seleccione combustible</legend>
+            <label for="fuels">Seleccione combustible</label><br />
+            <select name="selectFuel" id="selectFuel">
+              <option value="">Combustible</option>
+              <option value="Precio Gasolina 95 E5">Gasolina 95</option>
+              <option value="Precio Gasolina 95 E5 Premium">
+                Gasolina 95 Premium
+              </option>
+              <option value="Precio Gasolina 95 E10">Gasolina 95 E10</option>
+              <option value="Precio Gasolina 98 E5">Gasolina 98</option>
+              <option value="Precio Gasolina 98 E10">Gasolina 98 E10</option>
+              <option value="Precio Gasoleo A">Diesel</option>
+              <option value="Precio Gasoleo Premium">Diesel Premium</option>
+              <option value="Precio Gasoleo B">Diesel B (agrícola)</option>
+              <option value="Precio Biodiesel">Bio Diesel</option>
+              <option value="Precio Gas Natural Comprimido">GNC</option>
+              <option value="Precio Gas Natural Licuado">GNL</option>
+              <option value="Precio Gases licuados del petróleo">GLP</option>
+              <option value="Precio Bioetanol">Bio Etanol</option>
+              <option value="Precio Hidrogeno">Hidrógeno</option>
+            </select>
+          </fieldset>
+          <p>
+            ⚠️ Debido a un fallo que se está solucionando, para ver los
+            resultados hay que hacer clic algunas veces en el botón.
+          </p>
+
+          <button>Buscar</button>
+        </form>
+      </section>
+
+      <section id="results"></section>
+
+      <section id="resultsNotes"></section>
+    </main>
+
+    <footer>
+      En desarrollo por: Paolo Troni - paolotroni@gmail.com -
+      <a
+        href="https://www.linkedin.com/in/paolo-troni-developer/"
+        target="_blank"
+        >LinkedIn
+      </a>
+      <span> - </span>
+      <a href="https://github.com/PaoloTroni" target="_blank">GitHub</a>
+    </footer>
+  </body>
+</html>
+
+<!-- Para poner el abrir en google maps es solo hacer un enlace con ese formato:
+https://www.google.com/maps?q={latitud},{longitud}
+-->
+<!-- <a
+          href="https://www.google.com/maps?q=39.211417,-1.539167"
+          target="_blank"
+          >Abrir en Google Maps</a
+        >
+        <iframe
+          width="425"
+          height="350"
+          frameborder="0"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-8.726835250854494%2C42.2873339735053%2C-8.714067935943605%2C42.29248486083996&amp;layer=mapnik&amp;marker=42.289909469823534%2C-8.720451593399048"
+          style="border: 1px solid black"
+        ></iframe>
+
+        <br /><small
+          ><a
+            href="https://www.openstreetmap.org/?mlat=42.28991&amp;mlon=-8.72045#map=17/42.28991/-8.72045&amp;layers=N"
+            >Ver mapa más grande</a
+          ></small
+        >
+      </section>
+    </main>
+  </body>
+</html> -->
+
+<!-- Con ese frame de OpenStreetMap se puede mostrar un mapa incrustado con un marcador.
+En "marker" hay que poner el punto exacto y en "bbox" hay que poner uns valores cercanos al punto que queremos centrar. yo pondría igualmente un enlace de "abrir con google maps"
+-->

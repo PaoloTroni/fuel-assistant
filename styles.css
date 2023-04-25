@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap");
+:root {
+  --blue-corporative: #0097b2; /* declara la variable main-color y le asigna el valor #ff0000 */
+
+  --green-corporative: #00bf63;
+}
+
+.oculto {
+  visibility: hidden;
+}
+
+.logo {
+  width: auto; /* Establece la anchura de la imagen en 200 píxeles */
+  height: 5rem; /* Establece la altura de la imagen en automático para mantener la proporción */
+}
