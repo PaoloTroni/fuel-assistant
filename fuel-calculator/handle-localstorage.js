@@ -1,5 +1,5 @@
 "use strict";
-import { getDate } from "./date.js";
+import { getDate } from "./date-hour.js";
 
 const registers = [];
 
