@@ -2,14 +2,12 @@
 import { getDate } from "./date.js";
 
 const registers = [];
+
 //Obtenemos los datos del formulario:
 
 const dataForCalc = document.querySelector("#dataForCalc");
-
-dataForCalc.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const values = new FormData(e.target);
+const getData = () => {
+  const values = new FormData(dataForCalc);
 
   const litersFuel = values.get("litersFuel"); // litros de combustible
 
@@ -27,8 +25,8 @@ dataForCalc.addEventListener("submit", (e) => {
   const fullTankPrice = fuelTankCapacity * price; //precio estimado de llenar el depósito
   const rangeTank = Number(fuelTankCapacity * avgKmsPerL).toFixed(2); // autonomía estimada del depósito
 
-  // Objeto para Local Storage:
-  const register = {
+  // ponemos los datos en un objeto
+  const data = {
     "Data y hora": time,
     Precio: price,
     "Litros repostados": litersFuel,
@@ -40,34 +38,49 @@ dataForCalc.addEventListener("submit", (e) => {
     "Costo estimado para llenar el depósito": fullTankPrice,
     "Autonomia estimada del depósito": rangeTank,
   };
+  return data;
+};
+
+dataForCalc.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  console.log(getData());
+
+  const register = getData();
+
+  const storedRegisterParsed = [];
+
+  storedRegisterParsed.push(register);
+
+  let lr = 0;
 
   // console.log(register);
-  registers.push(register); //ponemos los register data en el array de registers
+  // registers.push(register); //ponemos los register data en el array de registers
   // console.log(registers);
 
   // Pasamos el array de registers
-  const registersJson = JSON.stringify(registers);
+  // const registersJson = JSON.stringify(registers);
   // console.log(registersJson);
 
   //ponemos los datos de los registros en el localStorage:
-  localStorage.setItem("registros", registersJson);
-});
-//################################################
-//Accedemos a los valores guardados en el localStorage (fuera del scope del event listener)
+  // localStorage.setItem("registros", registersJson);
 
-const storedRegister = localStorage.getItem("registros");
-const storedRegisterParsed = JSON.parse(storedRegister);
+  //################################################
+  //Accedemos a los valores guardados en el localStorage (fuera del scope del event listener)
 
-console.log(storedRegisterParsed);
+  // const storedRegister = localStorage.getItem("registros");
+  // const storedRegisterParsed = JSON.parse(storedRegister);
 
-let lr = storedRegisterParsed.length - 1; //lR = last register
+  // console.log(storedRegisterParsed);
 
-console.log("último indice del array:", lr);
-console.log(storedRegisterParsed[lr]["Data y hora"]);
+  // let lr = storedRegisterParsed.length - 1; //lR = last register
 
-const results = document.getElementById("results");
+  // console.log("último indice del array:", lr);
+  // console.log(storedRegisterParsed[lr]["Data y hora"]);
 
-results.innerHTML = `<p>
+  const results = document.getElementById("results");
+
+  results.innerHTML = `<p>
 Datos para tu recorrido del  ${storedRegisterParsed[lr]["Data y hora"]}: </p>
 <p>Litros repostados: ${storedRegisterParsed[lr]["Litros repostados"]} </p>
 <p>Precio por Litro €: ${storedRegisterParsed[lr]["Precio"]} </p>
@@ -78,3 +91,4 @@ Tu coche hizo una media de ${storedRegisterParsed[lr]["Consumo medio en L/100kms
 <p>Con estos datos, llenar el depósito (incluída la reserva) te cuesta € ${storedRegisterParsed[lr]["Costo estimado para llenar el depósito"]} y se
 estima que podrías recorrer ${storedRegisterParsed[lr]["Autonomia estimada del depósito"]} kms con dicho depósito antes de quedar completamente sin combustible.
 </p>`;
+});
