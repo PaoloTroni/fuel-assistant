@@ -1,28 +1,39 @@
 "use strict";
 import { getData } from "./get-data.js";
 
-let registers;
+// Antes de nada asignamos el valor guardado en el local storage (si existe) para saber si tenemos que pinatr o no el boton que nos da opciones para gestionar estos datos
+let registers = JSON.parse(localStorage.getItem("registers"));
+
+// En el caso ya exista datos en el local storage pintamos el botón para gestionar los datos
+if (registers !== null) {
+  const insertRegister = document.querySelector("#insertRegister");
+  const btnQueryData = document.createElement("button");
+  btnQueryData.innerHTML = `<a href="manage-data.html">Gestionar datos almacenados</a>`;
+  insertRegister.appendChild(btnQueryData);
+}
+
+// Proseguimos a pintar en la página los datos recogidos en el formulario y procesados
+
 const dataForCalc = document.querySelector("#dataForCalc");
 dataForCalc.addEventListener("submit", (e) => {
-  e.preventDefault();
-
+  e.preventDefault(); //prevenimos el comportamento predefinido del submit
   const register = getData();
-
   e.target.reset(); //Eso es para resetear el formulario una vez que se hay procesados sus datos (se procesan sus datos en la función getData)
 
   //seleccionamos y creamos los elementos del DOM
-
   const results = document.querySelector("#results");
   results.innerHTML = ""; // antes de poner los datos llenamos la <section id="results"> con "nada" para que al hacer una nueva consulta se borre los datos presentados anteriormente.
   const titleResults = document.createElement("h3");
+  const alias = document.createElement("h3");
   const listResults = document.createElement("ul");
   const estimations = document.createElement("p");
   const observation = document.createElement("p");
 
-  //LO QUE SIGUE (Y QUIZAS LO DE ANTES) TIENE QUE IR DENTRO DEL ADD EVENT LISTENER
+  //Añadimos el texto con la fecha y la hora
+  titleResults.textContent = `Datos insertados el ${register["Fecha y hora"]}`;
 
-  //Añadimos el texto del h3
-  titleResults.textContent = `Datos insertados el ${register["Data y hora"]}`;
+  //Añadimos el texto del Alias
+  alias.textContent = `${register.alias}`;
 
   // Añadir elementos a la lista
   const liLitersFuel = document.createElement("li");
@@ -61,40 +72,29 @@ dataForCalc.addEventListener("submit", (e) => {
 
   // Añadir el título y la lista a la sección de resultados
   results.appendChild(titleResults);
+  results.appendChild(alias);
   results.appendChild(listResults);
   results.appendChild(estimations);
   results.appendChild(observation);
 
-  console.log("registers antes de todo", registers);
-  // Obtener el valor actual almacenado en el Local Storage
-  registers = JSON.parse(localStorage.getItem("registers"));
+  // Ponemos los datos en el Local Storage
 
-  console.log(
-    "registers despues de obtener el valor actual almacenado en el Local Storage",
-    registers
-  );
-  // Verificar si ya existe un array almacenado en el Local Storage
+  // Verificar si ya existe un array de registros almacenado en el Local Storage y si no existe crear uno vacío
   if (registers === null) {
-    // Si no existe un array, crear uno vacío
     registers = [];
   }
-
-  console.log(
-    "registers despues de comprobar el valor actual almacenado en el Local Storage",
-    registers
-  );
   registers.push(register); //ponemos los register data en el array de registers
   console.log("contenido de register DESPUES de hacer el push", registers);
 
   // Pasamos a JSON el array de registers
   const registersJson = JSON.stringify(registers);
-  console.log(
-    "contenido de register DESPUES de hacer el stringfy",
-    registersJson
-  );
 
   // Ponemos los datos de los registros en el localStorage:
   localStorage.setItem(`registers`, registersJson);
+
+  const savedRegisters = JSON.parse(localStorage.getItem("registers"));
+
+  console.log(savedRegisters[2]);
 });
 
 //################################################

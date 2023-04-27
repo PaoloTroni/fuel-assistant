@@ -1,6 +1,6 @@
 "use strict";
 
-export function getDate() {
+export function getDateAndHour() {
   const now = new Date();
 
   const dateOptions = {
@@ -21,4 +21,15 @@ export function getDate() {
   const dateAndHour = date + " a las " + hour;
 
   return dateAndHour;
+}
+
+export function getNumericDate() {
+  const now = new Date();
+  const dateOptions = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  };
+  const numericDate = now.toLocaleDateString("es-ES", dateOptions);
+  return numericDate;
 }

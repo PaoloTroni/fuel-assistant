@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles.css" />
     <script src="print-data.js" defer type="module"></script>
-    <!-- <script src="localStorageData.js" defer></script> -->
-    <title>Estimar cuanto gastarías con tu coche en España y en Europa</title>
+    <title>Calcula y controla tus consumos y gastos</title>
   </head>
   <body>
     <header>
@@ -28,10 +27,20 @@
       <br />
     </header>
     <main>
-      <section>
+      <section id="insertRegister">
         <form id="dataForCalc">
           <fieldset>
-            <h2>Insertar datos para el calculo</h2>
+            <h2>Insertar datos</h2>
+
+            <label for="alias">Identificador:</label>
+            <input
+              id="alias"
+              name="alias"
+              type="text"
+              placeholder="Gasolinera de Av. Madrid"
+              required
+            />
+            <br />
             <label for="litersFuel">Litros repostados:</label>
             <input
               id="litersFuel"
@@ -73,7 +82,7 @@
               placeholder="45"
             />
 
-            <button>Calcular y guardar datos</button>
+            <button type="submit">Calcular y guardar datos</button>
             <p>OBS: los datos se almacenan localmente en el navegador.</p>
           </fieldset>
         </form>

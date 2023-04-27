@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="handle-localstorage.js" defer type="module"></script>
+    <title>Gestiona tus datos almacenados</title>
+  </head>
+  <body>
+    <header>
+      <a href="/index.html">
+        <img class="logo" src="/images/logo.png" alt="logo fuel assistant"
+      /></a>
+
+      <h1>Gestiona tus datos almacenados</h1>
+
+      <button>
+        <a href="/fuel-stations-search/index-fuel-stations-search.html"
+          >Busca a tu gasolinera preferida</a
+        >
+      </button>
+      <br />
+      <hr />
+      <br />
+    </header>
+    <main>
+      <section>
+        <button id="btnQueryAllData">Consulta todos tus registros</button>
+
+        <fieldset>
+          <legend>Seleccione datos para filtro</legend>
+          <form>
+            <label for="alias">Identificador:</label>
+            <input
+              id="alias"
+              name="alias"
+              type="text"
+              placeholder="Gasolinera de Av. Madrid"
+            />
+            <br />
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" />
+
+            <button type="submit">Buscar</button>
+            <p>EN CADA RESULTADO PONER UN BOTON DE BORRAR REGISTRO</p>
+          </form>
+        </fieldset>
+        <button id="btnDeleteAllData">Borra todos tus registros</button>
+      </section>
+    </main>
+  </body>
+</html>
