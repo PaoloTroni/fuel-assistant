@@ -1,7 +1,7 @@
 "use strict";
 import { getData } from "./get-data.js";
 
-const registers = [];
+let registers;
 const dataForCalc = document.querySelector("#dataForCalc");
 dataForCalc.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -65,19 +65,36 @@ dataForCalc.addEventListener("submit", (e) => {
   results.appendChild(estimations);
   results.appendChild(observation);
 
-  // PROBABLEMENTE HABRṔA QUE EMPEZAR LO DEL LOCAL STORAGE AQUI Y QUIZAS ACABAR EN OTRO ARCHIVO
+  console.log("registers antes de todo", registers);
+  // Obtener el valor actual almacenado en el Local Storage
+  registers = JSON.parse(localStorage.getItem("registers"));
 
-  console.log("registro actual", register);
-  console.log("contenido de los registros ANTES de hacer el push", registers);
+  console.log(
+    "registers despues de obtener el valor actual almacenado en el Local Storage",
+    registers
+  );
+  // Verificar si ya existe un array almacenado en el Local Storage
+  if (registers === null) {
+    // Si no existe un array, crear uno vacío
+    registers = [];
+  }
+
+  console.log(
+    "registers despues de comprobar el valor actual almacenado en el Local Storage",
+    registers
+  );
   registers.push(register); //ponemos los register data en el array de registers
-  console.log("contenido de los registros DESPUES de hacer el push", registers);
+  console.log("contenido de register DESPUES de hacer el push", registers);
 
   // Pasamos a JSON el array de registers
   const registersJson = JSON.stringify(registers);
-  console.log(registersJson);
+  console.log(
+    "contenido de register DESPUES de hacer el stringfy",
+    registersJson
+  );
 
   // Ponemos los datos de los registros en el localStorage:
-  localStorage.setItem("registros", registersJson);
+  localStorage.setItem(`registers`, registersJson);
 });
 
 //################################################
