@@ -1,6 +1,7 @@
 "use strict";
 import { getData } from "./get-data.js";
 
+const registers = [];
 const dataForCalc = document.querySelector("#dataForCalc");
 dataForCalc.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -66,29 +67,30 @@ dataForCalc.addEventListener("submit", (e) => {
 
   // PROBABLEMENTE HABRṔA QUE EMPEZAR LO DEL LOCAL STORAGE AQUI Y QUIZAS ACABAR EN OTRO ARCHIVO
 
-  // console.log(register);
-  // registers.push(register); //ponemos los register data en el array de registers
-  // console.log(registers);
+  console.log("registro actual", register);
+  console.log("contenido de los registros ANTES de hacer el push", registers);
+  registers.push(register); //ponemos los register data en el array de registers
+  console.log("contenido de los registros DESPUES de hacer el push", registers);
 
-  // Pasamos el array de registers
-  // const registersJson = JSON.stringify(registers);
-  // console.log(registersJson);
+  // Pasamos a JSON el array de registers
+  const registersJson = JSON.stringify(registers);
+  console.log(registersJson);
 
-  //ponemos los datos de los registros en el localStorage:
-  // localStorage.setItem("registros", registersJson);
-
-  //################################################
-  //Accedemos a los valores guardados en el localStorage (fuera del scope del event listener)
-
-  // const storedRegister = localStorage.getItem("registros");
-  // const storedRegisterParsed = JSON.parse(storedRegister);
-
-  // console.log(storedRegisterParsed);
-
-  // let lr = storedRegisterParsed.length - 1; //lR = last register
-
-  // console.log("último indice del array:", lr);
-  // console.log(storedRegisterParsed[lr]["Data y hora"]);
-
-  // const results = document.getElementById("results");
+  // Ponemos los datos de los registros en el localStorage:
+  localStorage.setItem("registros", registersJson);
 });
+
+//################################################
+//Accedemos a los valores guardados en el localStorage (fuera del scope del event listener)
+
+// const storedRegister = localStorage.getItem("registros");
+// const storedRegisterParsed = JSON.parse(storedRegister);
+
+// console.log(storedRegisterParsed);
+
+// let lr = storedRegisterParsed.length - 1; //lR = last register
+
+// console.log("último indice del array:", lr);
+// console.log(storedRegisterParsed[lr]["Data y hora"]);
+
+// const results = document.getElementById("results");
