@@ -1,16 +1,23 @@
 "use strict";
 import { getData } from "./get-data.js";
 
-// Antes de nada asignamos el valor guardado en el local storage (si existe) para saber si tenemos que pinatr o no el boton que nos da opciones para gestionar estos datos
-let registers = JSON.parse(localStorage.getItem("registers"));
+// Control del botón de gestionar datos almacenados
 
-// En el caso ya exista datos en el local storage pintamos el botón para gestionar los datos
-if (registers !== null) {
-  const insertRegister = document.querySelector("#insertRegister");
-  const btnQueryData = document.createElement("button");
-  btnQueryData.innerHTML = `<a href="manage-data.html">Gestionar datos almacenados</a>`;
-  insertRegister.appendChild(btnQueryData);
-}
+// Antes de nada recuperamos el valor guardado en el local storage (si existe) para saber que tenemos que hacer con él botón
+let registers = JSON.parse(localStorage.getItem("registers"));
+//Creamos el botón de gestión de datos
+const insertRegister = document.querySelector("#insertRegister");
+const btnQueryData = document.createElement("button");
+btnQueryData.innerHTML = "Gestionar datos almacenados";
+insertRegister.appendChild(btnQueryData);
+//ponemos el event listener en el botón. Si hay datos nos manda a la página correspondiente. En caso contrario dice al usuario que no hay datos y que cree uno.
+btnQueryData.addEventListener("click", () => {
+  registers
+    ? (location.href = "manage-data.html") //location.href es el "equivalente del <a> en JS"
+    : alert(
+        "No hay datos para gestionar. Por favor, inserte algún registro primero."
+      );
+});
 
 // Proseguimos a pintar en la página los datos recogidos en el formulario y procesados
 
