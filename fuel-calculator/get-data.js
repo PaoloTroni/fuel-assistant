@@ -1,13 +1,13 @@
 "use strict";
-import { getDateAndHour } from "./date-hour.js";
-import { getNumericDate } from "./date-hour.js";
+import { getDateAndHour } from "./get-date-hour.js";
+
 //función para obtener los datos del formulario:
 
 const dataForCalc = document.querySelector("#dataForCalc");
 export const getData = () => {
   const values = new FormData(dataForCalc);
 
-  const alias = values.get("alias"); //Alias de la entrada insertada
+  const alias = values.get("alias").toUpperCase(); //Alias de la entrada insertada
 
   const litersFuel = values.get("litersFuel"); // litros de combustible
 
@@ -24,7 +24,7 @@ export const getData = () => {
   const pricePerKm = Number((litersFuel / kms) * price).toFixed(2); //precio de cada km
   const fullTankPrice = fuelTankCapacity * price; //precio estimado de llenar el depósito
   const rangeTank = Number(fuelTankCapacity * avgKmsPerL).toFixed(1); // autonomía estimada del depósito
-  const numericDate = getNumericDate();
+  const numericDate = new Date().toISOString().slice(0, 10); //fecha con formato "yyyy-mm-dd"
 
   // ponemos los datos en un objeto
   const data = {
@@ -38,7 +38,7 @@ export const getData = () => {
     "Consumo medio en kms X Litro": avgKmsPerL,
     "Gasto medio por Km": pricePerKm,
     "Capacidad del depósito": fuelTankCapacity,
-    "Costo estimado para llenar el depósito": fullTankPrice,
+    "Coste estimado para llenar el depósito": fullTankPrice,
     "Autonomia estimada del depósito": rangeTank,
     "fecha numerica": numericDate,
   };

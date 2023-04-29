@@ -31,25 +31,29 @@
         <button id="btnQueryAllData">Consulta todos tus registros</button>
 
         <fieldset>
-          <legend>Seleccione datos para filtro</legend>
-          <form>
+          <legend>Seleccione los datos para la búsqueda</legend>
+          <p>
+            Puedes buscar por el identificador o por la fecha del registro o por
+            ambas cosas.
+          </p>
+          <form id="dataForQuerys">
             <label for="alias">Identificador:</label>
             <input
-              id="alias"
-              name="alias"
+              id="aliasForQuery"
+              name="aliasForQuery"
               type="text"
               placeholder="Gasolinera de Av. Madrid"
             />
             <br />
-            <label for="date">Fecha:</label>
-            <input type="date" id="date" name="date" />
+            <label for="dateForQuery">Fecha:</label>
+            <input type="date" id="dateForQuery" name="dateForQuery" />
 
             <button type="submit">Buscar</button>
-            <p>EN CADA RESULTADO PONER UN BOTON DE BORRAR REGISTRO</p>
           </form>
         </fieldset>
         <button id="btnDeleteAllData">Borra todos tus registros</button>
       </section>
+      <section id="results"></section>
     </main>
   </body>
 </html>

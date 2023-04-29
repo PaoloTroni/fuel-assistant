@@ -22,14 +22,3 @@ export function getDateAndHour() {
 
   return dateAndHour;
 }
-
-export function getNumericDate() {
-  const now = new Date();
-  const dateOptions = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-  };
-  const numericDate = now.toLocaleDateString("es-ES", dateOptions);
-  return numericDate;
-}

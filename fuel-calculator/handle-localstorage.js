@@ -1,29 +1,11 @@
 "use strict";
-let registers = JSON.parse(localStorage.getItem("registers"));
-function deleteAllData() {
-  const btnDeleteAllData = document.querySelector("#btnDeleteAllData");
-  btnDeleteAllData.addEventListener("click", () => {
-    try {
-      if (!registers) {
-        throw new Error("❌ Error: No hay datos para borrar.");
-      }
-      if (
-        confirm(
-          "⚠️ ¡Atención!  Se borrarán de ese navegador todos tus datos referentes al consumo de combustible. ¿Estás seguro de que deseas continuar?"
-        ) &&
-        confirm("Seguimos. ¿Estás seguro?")
-      ) {
-        localStorage.clear();
-        alert("Datos borrados con éxito.");
-      } else {
-        alert("Operación cancelada.");
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  });
-}
 
+import { deleteAllData } from "./deleta-all-data.js";
+import { queryAllData } from "./query-all-data.js";
+import { querySelectedData } from "./query-selected-data.js";
+
+queryAllData();
+querySelectedData();
 deleteAllData();
 // Verificar si ya existe un array de registros almacenado en el Local Storage y si no existe un array, crear uno vacío
 // let registers = JSON.parse(localStorage.getItem("registers"));

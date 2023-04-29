@@ -6,7 +6,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles.css" />
-    <script src="print-data.js" defer type="module"></script>
+    <script src="main.js" defer type="module"></script>
     <title>Calcula y controla tus consumos y gastos</title>
   </head>
   <body>
@@ -83,7 +83,21 @@
             />
 
             <button type="submit">Calcular y guardar datos</button>
-            <p>OBS: los datos se almacenan localmente en el navegador.</p>
+            <section id="notes">
+              <h3>Notas importantes:</h3>
+              <ul>
+                <li>La página no se queda con ningún dato del usuario.</li>
+                <li>
+                  Los datos se almacenan localmente en el navegador. Si se
+                  borran los datos de navegación es probable que se pierdan los
+                  datos almacenados.
+                </li>
+                <li>
+                  Los datos tienen un pequeño margen de imprecisión debido al
+                  redondeo de los decimales.
+                </li>
+              </ul>
+            </section>
           </fieldset>
         </form>
       </section>
