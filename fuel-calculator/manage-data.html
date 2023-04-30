@@ -6,7 +6,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles.css" />
-    <script src="handle-localstorage.js" defer type="module"></script>
+    <script src="manage-data.js" defer type="module"></script>
     <title>Gestiona tus datos almacenados</title>
   </head>
   <body>
@@ -17,6 +17,11 @@
 
       <h1>Gestiona tus datos almacenados</h1>
 
+      <button>
+        <a href="/fuel-calculator/index-fuel-calculator.html"
+          >Volver a insertar datos</a
+        >
+      </button>
       <button>
         <a href="/fuel-stations-search/index-fuel-stations-search.html"
           >Busca a tu gasolinera preferida</a
@@ -42,6 +47,8 @@
               id="aliasForQuery"
               name="aliasForQuery"
               type="text"
+              minlength="2"
+              maxlength="50"
               placeholder="Gasolinera de Av. Madrid"
             />
             <br />

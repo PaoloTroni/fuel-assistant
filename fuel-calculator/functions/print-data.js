@@ -1,4 +1,5 @@
 "use strict";
+import { deleteSingleRegister } from "./delete-single-register.js";
 
 export function printData(register) {
   //seleccionamos y creamos los elementos del DOM
@@ -64,23 +65,6 @@ export function printData(register) {
   result.appendChild(btnDeleteRegister);
 
   btnDeleteRegister.addEventListener("click", () => {
-    let registers = JSON.parse(localStorage.getItem("registers"));
-    const registerToDelete = register["Fecha y hora"];
-    console.log(register["Fecha y hora"]);
-
-    for (let i = 0; i < registers.length; i++) {
-      if (
-        //los critérios de búsqueda son dos: identificador o fecha
-        registers[i]["Fecha y hora"] === registerToDelete
-      ) {
-        registers.splice(i, 1);
-        i--;
-        localStorage.setItem("registers", JSON.stringify(registers));
-        alert(
-          `Se ha borrado el registro "${register["alias"]}" del ${register["Fecha y hora"]} `
-        );
-        location.reload();
-      }
-    }
+    deleteSingleRegister(register);
   });
 }

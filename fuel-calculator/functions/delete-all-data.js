@@ -12,12 +12,13 @@ export function deleteAllData() {
         confirm(
           "⚠️ ¡Atención!  Se borrarán de ese navegador todos tus datos referentes al consumo de combustible. ¿Estás seguro de que deseas continuar?"
         ) &&
-        confirm("Seguimos. ¿Estás seguro?")
+        confirm("¿Estás seguro de borrar todos los datos?")
       ) {
         localStorage.clear();
-        alert("Datos borrados con éxito.");
+        alert("Datos borrados con éxito");
+        location.href = "index-fuel-calculator.html";
       } else {
-        alert("Operación cancelada.");
+        alert("Operación cancelada");
       }
     } catch (error) {
       alert(error.message);

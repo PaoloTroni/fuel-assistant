@@ -1,6 +1,6 @@
 "use strict";
-import { getData } from "./get-data.js";
-import { printData } from "./print-data.js";
+import { getData } from "./functions/get-data.js";
+import { printData } from "./functions/print-data.js";
 
 let registers = JSON.parse(localStorage.getItem("registers"));
 
@@ -28,44 +28,35 @@ btnQueryData.addEventListener("click", () => {
 
 const dataForCalc = document.querySelector("#dataForCalc");
 dataForCalc.addEventListener("submit", (e) => {
-  e.preventDefault(); //prevenimos el comportamento predefinido del submit
-  const register = getData();
-  e.target.reset(); //Eso es para resetear el formulario una vez que se hay procesados sus datos (se procesan sus datos en la función getData)
+  try {
+    e.preventDefault(); //prevenimos el comportamento predefinido del submit
+    const register = getData();
+    if (!register || register === null) {
+      e.target.reset();
+      throw new Error("Por favor, inserte los datos correctamente");
+    }
+    e.target.reset(); //Eso es para resetear el formulario una vez que se hay procesados sus datos (se procesan sus datos en la función getData)
 
-  results.innerHTML = ""; // antes de poner los datos llenamos la <section id="results"> con "nada" para que al hacer una nueva consulta se borre los datos presentados anteriormente.
+    results.innerHTML = ""; // antes de poner los datos llenamos la <section id="results"> con "nada" para que al hacer una nueva consulta se borre los datos presentados anteriormente.
 
-  //la función correpondiente recibe los datos del formulario por parametro y los pinta en la pantalla.
-  printData(register);
+    //la función correpondiente recibe los datos del formulario por parametro y los pinta en la pantalla.
+    printData(register);
 
-  // Ponemos los datos en el Local Storage
+    // Ponemos los datos en el Local Storage
 
-  // Verificar si ya existe un array de registros almacenado en el Local Storage y si no existe crear uno vacío
-  if (registers === null) {
-    registers = [];
+    // Verificar si ya existe un array de registros almacenado en el Local Storage y si no existe crear uno vacío
+    if (registers === null) {
+      registers = [];
+    }
+    registers.push(register); //ponemos los register data en el array de registers
+
+    // Pasamos a JSON el array de registers y lo ponemos en los registros del localStorage:
+    localStorage.setItem(`registers`, JSON.stringify(registers));
+  } catch (error) {
+    console.error(error);
+    const pError = document.createElement("p");
+    pError.classList.add("error");
+    pError.textContent = "Por favor, inserte los datos correctamente.";
+    document.querySelector("#insertRegister").appendChild(pError);
   }
-  registers.push(register); //ponemos los register data en el array de registers
-
-  // Pasamos a JSON el array de registers
-  const registersJson = JSON.stringify(registers);
-
-  //
-  // Pasamos a JSON el array de registers y lo ponemos en los registros del localStorage:
-  localStorage.setItem(`registers`, JSON.stringify(registers));
-
-  // lógica del botón de borrar registro:
 });
-
-//################################################
-//Accedemos a los valores guardados en el localStorage (fuera del scope del event listener)
-
-// const storedRegister = localStorage.getItem("registros");
-// const storedRegisterParsed = JSON.parse(storedRegister);
-
-// console.log(storedRegisterParsed);
-
-// let lr = storedRegisterParsed.length - 1; //lR = last register
-
-// console.log("último indice del array:", lr);
-// console.log(storedRegisterParsed[lr]["Data y hora"]);
-
-// const results = document.getElementById("results");
