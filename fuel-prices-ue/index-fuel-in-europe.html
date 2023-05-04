@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="main.js" defer type="module"></script>
+    <title>Cuanto gastarías con tu coche en Europa</title>
+  </head>
+  <body>
+    <header>
+      <a href="/index.html">
+        <img class="logo" src="/images/logo.png" alt="logo fuel assistant"
+      /></a>
+
+      <h1>Cuanto gastarías con tu coche en Europa?</h1>
+
+      <button>
+        <a href="/fuel-stations-search/index-fuel-stations-search.html"
+          >Busca a tu gasolinera preferida</a
+        >
+      </button>
+      <br />
+      <hr />
+      <br />
+
+      <fieldset>
+        <form id="userData">
+          <label for="country"
+            >Seleccione el país sobre el que quieres estimar datos</label
+          >
+          <br /><select name="selectedCountry" id="selectedCountry" required>
+            <option value="">Seleccione un país</option>
+          </select>
+          <br />
+          <br />
+          <label for="fuel">Seleccione el combustible</label> <br /><select
+            name="fuel"
+            id="fuel"
+            required
+          >
+            <option value="gasoline">Gasolina (95)</option>
+            <option value="diesel">Diesel</option>
+          </select>
+          <label for="litersFuel">Litros a repostar</label>
+          <input
+            id="litersFuel"
+            name="litersFuel"
+            type="number"
+            min="1"
+            max="1000"
+            placeholder="45"
+            required
+          />
+          <button submit>Calcular</button>
+        </form>
+      </fieldset>
+    </header>
+    <main>
+      <section class="results"></section>
+    </main>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <footer></footer>
+  </body>
+</html>
