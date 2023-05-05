@@ -7,7 +7,7 @@ const userData = document.querySelector("#userData");
 export const getInsertedData = () => {
   try {
     const values = new FormData(userData);
-
+    //Hacemos algunos controles por si falla los controles del HTML
     const selectedCountry = values.get("selectedCountry");
     if (!selectedCountry) {
       throw new Error(
@@ -35,7 +35,7 @@ export const getInsertedData = () => {
     return insertedData;
   } catch (error) {
     console.error(error);
-    const pError = document.createElement("p");
+    const pError = document.createElement("p"); //comunicamos al usuario sobre el error
     pError.classList.add("error");
     pError.textContent = error;
     document.querySelector(".results").appendChild(pError);

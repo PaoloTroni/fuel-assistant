@@ -1,5 +1,5 @@
 "use strict";
-import { countriesOfUE } from "./countries.js";
+import { countriesOfUE } from "../countries.js";
 
 export function processData(fetchedData, userFormData) {
   let countriesWithValidPrice = [];
