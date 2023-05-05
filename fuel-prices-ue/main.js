@@ -2,6 +2,8 @@
 
 import { countriesOfUE } from "./countries.js"; //Objecto con los países de la UE, en Español y en Inglés
 import { getInsertedData } from "./get-inserted-data.js"; //Función que extrae los datos insertados en el formulario
+import { processData } from "./process-data.js"; //Función que procesa los datos de la API junto con los datos introducidos en el formulario
+import { controlCountry } from "./control-country.js";
 
 //Creamos las <option> del <select> para el usuario poder seleccionar el país deseado.
 const selectedCountry = document.querySelector("#selectedCountry");
@@ -13,49 +15,26 @@ for (let countryOfUE in countriesOfUE) {
   selectedCountry.appendChild(countryOption);
 }
 
-//Pintamos los datos en pantalla - PROBABLEMENTE ESO SERÁ UNA FUNCIÓN QUE TENDREMOS QUE LLAMAR DENTRO DEL BLOQUE DEL .THEN
-// const userData = document.querySelector("#userData");
-// userData.addEventListener("submit", (e) => {
-//   e.preventDefault(); //prevenimos el comportamento predefinido del submit
-//   const userFormData = getInsertedData();
-//   console.log(userFormData);
-//   const prueba = document.createElement("p");
-
-//   prueba.textContent = `Para esa prueba hemos puesto un valor del fetch: ${data[6]["country"]} y un valor del submit: ${userFormData["País seleccionado"]}`;
-//   document.querySelector(".results").appendChild(prueba);
-//   console.log(data);
-// });
-
 // Elaboramos la función con lo que queremos hacer con los datos. Esta función luego se llamará dentro del bloque .then
 function hacerAlgo(fetchedData) {
   const userData = document.querySelector("#userData");
   userData.addEventListener("submit", (e) => {
     e.preventDefault(); //prevenimos el comportamento predefinido del submit
     const userFormData = getInsertedData();
-    console.log(userFormData);
-    const prueba = document.createElement("p");
 
-    //El valor del combustible es un string, que muchas veces se presenta así: 1,3222.65. Aunque convertamos a Number tendremos problemas, con lo cual hay que extraer solo los números que nos interesa, cambiando la coma por punto.
-    //iniciamos un ciclo para recorrer los datos y así cambiar los valores por valores numéricos.
-    for (let i = 0; i < fetchedData.length; i++) {
-      fetchedData[i][userFormData.combustible] = Number(
-        fetchedData[i][userFormData.combustible].replace(",", ".").slice(0, 5)
-      );
-    }
-    //Filtramos únicamente los países que tengan precios validos (por si hay algun fallo de la API o incluso si llegara a fallar el código de arriba)
-    const countriesWithValidPrice = fetchedData.filter(
-      (country) => !isNaN(country[userFormData.combustible])
-    );
-    // Buscamos los datos del país seleccionado
-    const dataSelectedCountry = countriesWithValidPrice.filter((country) => {
-      return country.country === userFormData["país seleccionado"];
-    });
+    controlCountry(fetchedData, userFormData);
 
-    // Trabajamos con los datos encontrados para que se pueda presentarlos correctamente
+    const {
+      dataSelectedCountry,
+      countryMinPriceFuel,
+      countryMaxPriceFuel,
+      countryMinPriceNameEs,
+      countryMaxPriceNameEs,
+    } = processData(fetchedData, userFormData);
 
-    const priceSelectedFuel = dataSelectedCountry[0][userFormData.combustible]; //se podía omitir eso, pero lo ponemos en una const para no tener que escribir todo eso cuando queramos representar el combustible del país seleccionado.
+    const priceSelectedFuel = dataSelectedCountry?.[userFormData.combustible]; //se podía omitir eso, pero lo ponemos en una const para no tener que escribir todo eso cuando queramos representar el combustible del país seleccionado.
 
-    //La Api devuelve "gasoline" en lugar de "gasolina". Diesel está bien. Tenemos que hacer un if que según el caso modifica el valor, así podemos presentar el valor correcto.
+    //La API devuelve "gasoline" en lugar de "gasolina". Diesel está bien. Tenemos que hacer un if que según el caso modifica el valor, así podemos presentar el valor correcto.
     let selectedFuel;
 
     if (userFormData.combustible === "gasoline") {
@@ -63,63 +42,63 @@ function hacerAlgo(fetchedData) {
     } else {
       selectedFuel = userFormData.combustible;
     }
-
     //Tenemos que pasar el nombre del país que devuelve la api de inglés a castellano.
     //Usamos el objeto selectedOptions del elemento select para acceder al textContent del option seleccionado.
     const selectedCountryName = selectedCountry.selectedOptions[0].textContent;
 
-    //Buscamos el país con los precios más altos y más bajos del combustible seleccionado, para dar información adicional
+    //--------------------------sesión de DOM con los datos obtenidos------------------------
+    const results = document.querySelector(".results");
+    results.innerHTML = "";
+    if (priceSelectedFuel) {
+      const titleResults = document.createElement("h4");
+      titleResults.textContent = `Datos del precio de ${selectedFuel} en ${selectedCountryName}`;
 
-    let countryMinPriceFuel = countriesWithValidPrice[0]; //iniciamos una variable para poner los datos del pais con el precio más bajo
-    let countryMaxPriceFuel = countriesWithValidPrice[0]; //iniciamos una variable para poner los datos del pais con el precio más alto
-    // //iniciamos un ciclo para recorrer los datos de los países y sacar los datos que nos interesa
-    for (let i = 0; i < countriesWithValidPrice.length; i++) {
-      if (
-        //buscamos el país con el combustible más caro
-        countriesWithValidPrice[i][userFormData.combustible] >
-        countryMaxPriceFuel[userFormData.combustible]
-      ) {
-        countryMaxPriceFuel = countriesWithValidPrice[i];
-      }
-      if (
-        countriesWithValidPrice[i][userFormData.combustible] <
-        countryMinPriceFuel[userFormData.combustible]
-      ) {
-        countryMinPriceFuel = countriesWithValidPrice[i];
-      }
+      const avgPriceLiter = document.createElement("p");
+      avgPriceLiter.textContent = `El precio medio por litro de ${selectedFuel} en ${selectedCountryName} es de ${priceSelectedFuel}`;
+
+      const priceTank = document.createElement("p");
+      priceTank.textContent = `Repostar ${
+        userFormData["litros a calcular"]
+      } litro(s) de ${selectedFuel} en ${selectedCountryName}, saldría por ${(
+        priceSelectedFuel * userFormData["litros a calcular"]
+      ).toFixed(2)} euros.`;
+      results.appendChild(titleResults);
+      results.appendChild(avgPriceLiter);
+      results.appendChild(priceTank);
     }
 
-    console.log("el país con la gasolina mas barata es:", countryMinPriceFuel);
-    console.log("el país con la gasolina mas cara es:", countryMaxPriceFuel);
+    const extrems = document.querySelector(".extrems");
 
-    //Pintamos los datos en la pantalla
+    extrems.innerHTML = "";
 
-    prueba.textContent = `El precio medio por litro de ${selectedFuel} en ${selectedCountryName} es de ${priceSelectedFuel}. Repostar ${
-      userFormData["litros a calcular"]
-    } litros de ${selectedFuel} en ${selectedCountryName}, según el precio medio indicado por el "Boletín Petrolero Semanal" de la Unión Europea, saldría por ${(
-      priceSelectedFuel * userFormData["litros a calcular"]
-    ).toFixed(2)} euros. Precios más bajo y más alto en Europa: 
-    El país más barato: El litro de ${selectedFuel} en ${
-      countryMinPriceFuel["country"]
-    } sale por ${
+    const titleExtrems = document.createElement("h4");
+    titleExtrems.textContent = "Precios más bajos y más altos en Europa:";
+
+    const lessExpensiveCountry = document.createElement("p");
+    lessExpensiveCountry.textContent = `El país más barato de la UE es ${countryMinPriceNameEs}, donde el litro de ${selectedFuel} sale por € ${
       countryMinPriceFuel[userFormData.combustible]
-    }. El país más caro: El litro de ${selectedFuel} en ${
-      countryMaxPriceFuel["country"]
-    } sale por ${countryMaxPriceFuel[userFormData.combustible]}.
+    }`;
+
+    const mostExpensiveCountry = document.createElement("p");
+    mostExpensiveCountry.textContent = `El país más caro de la UE es ${countryMaxPriceNameEs}, donde el litro de ${selectedFuel} sale por € ${
+      countryMaxPriceFuel[userFormData.combustible]
+    }`;
+
+    const notaUE = document.createElement("p");
+    notaUE.textContent = `Precios medios indicados por el "Boletín Petrolero Semanal" de la Unión Europea.`;
+
+    const notaAPI = document.createElement("p");
+    notaAPI.innerHTML = `
+     Estos datos están disponibles gracias a la API elaborada por Miguel Colmenero. Más info en este enlace:
+      <a href="https://miguelangelcolmenero.eu/proyectos/combustible/api.html" target="_blank">
+        miguelangelcolmenero.eu/proyectos/combustible/api.html
+      </a>
     `;
-    document.querySelector(".results").appendChild(prueba);
 
-    const countryMinNameEn = countryMinPriceFuel["country"]; // nombre del país en inglés
-    const countryMinNameEs = Object.keys(countriesOfUE).find(
-      (key) => countriesOfUE[key] === countryMinNameEn
-    );
-    console.log(`El país con el precio más bajo es: ${countryMinNameEs}`);
-
-    const countryMaxNameEn = countryMaxPriceFuel["country"]; // nombre del país en inglés
-    const countryMaxNameEs = Object.keys(countriesOfUE).find(
-      (key) => countriesOfUE[key] === countryMaxNameEn
-    );
-    console.log(`El país con el precio más bajo es: ${countryMaxNameEs}`);
+    extrems.appendChild(titleExtrems);
+    extrems.appendChild(lessExpensiveCountry);
+    extrems.appendChild(mostExpensiveCountry);
+    extrems.appendChild(notaAPI);
   });
 }
 
@@ -141,21 +120,3 @@ fetch(urlAvgFuelPriceEU)
   .catch((error) => {
     console.error("error:", error);
   });
-
-// let countryMaxPriceFuel = null;
-// let i = 0;
-// while (i < fetchedData.length) {
-//   let fuelPrice = Number(
-//     fetchedData[i][userFormData.combustible].replace(",", ".").slice(0, 5)
-//   );
-//   if (!isNaN(fuelPrice)) {
-//     if (
-//       countryMaxPriceFuel === null ||
-//       fuelPrice > countryMaxPriceFuel[userFormData.combustible]
-//     ) {
-//       console.log("el ciclo pasó por aqui esas vueltas:", i);
-//       countryMaxPriceFuel = fetchedData[i];
-//     }
-//   }
-//   i++;
-// }
