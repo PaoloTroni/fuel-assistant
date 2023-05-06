@@ -11,7 +11,7 @@ export const getInsertedData = () => {
     const selectedCountry = values.get("selectedCountry");
     if (!selectedCountry) {
       throw new Error(
-        "No has seleccionado nada ningún país. Por favor, revise tu búsqueda."
+        "No has seleccionado ningún país. Por favor, revise tu búsqueda."
       );
     }
 

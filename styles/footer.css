@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap");
+:root {
+  --blue-corporative: #0097b2; /* declara la variable main-color y le asigna el valor #ff0000 */
+
+  --green-corporative: #00bf63;
+}
+
+footer {
+  border-top: 0.5px solid var(--green-corporative);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+footer p {
+  margin: 0.5rem auto 0.5rem auto;
+  font-size: 0.9rem;
+}
+
+footer p span {
+  font-weight: 700;
+}
+
+footer img {
+  max-width: 5.5rem;
+  margin: 0.3rem;
+}
+footer #img-email {
+  max-width: 12rem;
+}
+
+footer #link-linkedin,
+footer #portfolio {
+  transition: 0.3s ease;
+}
+footer #github {
+  max-width: 3rem;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+footer #github:hover,
+footer #link-linkedin:hover,
+footer #portfolio:hover {
+  transform: scale(1.2);
+  border: 2px solid var(--green-corporative);
+}
+
+@media screen and (max-width: 660px) {
+  footer {
+    display: flex;
+    flex-direction: column;
+  }
+  footer img {
+    max-width: 7rem;
+    margin: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 804px) {
+  footer img {
+    max-width: 6.5rem;
+    margin: 1rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  footer img {
+    max-width: 7rem;
+    margin: 2rem;
+  }
+}

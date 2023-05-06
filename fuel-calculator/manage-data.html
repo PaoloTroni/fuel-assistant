@@ -6,31 +6,14 @@
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../styles/footer.css" />
     <script src="manage-data.js" defer type="module"></script>
+    <script src="../print-global-header.js" defer type="module"></script>
+    <script src="../print-global-footer.js" defer></script>
     <title>Gestiona tus datos almacenados</title>
   </head>
   <body>
-    <header>
-      <a href="/index.html">
-        <img class="logo" src="/images/logo.png" alt="logo fuel assistant"
-      /></a>
-
-      <h1>Gestiona tus datos almacenados</h1>
-
-      <button>
-        <a href="/fuel-calculator/index-fuel-calculator.html"
-          >Volver a insertar datos</a
-        >
-      </button>
-      <button>
-        <a href="/fuel-stations-search/index-fuel-stations-search.html"
-          >Busca a tu gasolinera preferida</a
-        >
-      </button>
-      <br />
-      <hr />
-      <br />
-    </header>
+    <header></header>
     <main>
       <section>
         <button id="btnQueryAllData">Consulta todos tus registros</button>
@@ -62,5 +45,6 @@
       </section>
       <section id="results"></section>
     </main>
+    <footer></footer>
   </body>
 </html>

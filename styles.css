@@ -12,4 +12,14 @@
 .logo {
   width: auto; /* Establece la anchura de la imagen en 200 píxeles */
   height: 5rem; /* Establece la altura de la imagen en automático para mantener la proporción */
+  transition: 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+  border: 2px solid var(--green-corporative);
+}
+
+.error {
+  color: red;
 }
