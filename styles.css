@@ -4,14 +4,21 @@
 
   --green-corporative: #00bf63;
 }
+header {
+  border-bottom: 0.5px solid var(--green-corporative);
+}
 
 .oculto {
   visibility: hidden;
 }
 
+h1 {
+  margin: 0;
+}
 .logo {
-  width: auto; /* Establece la anchura de la imagen en 200 píxeles */
-  height: 5rem; /* Establece la altura de la imagen en automático para mantener la proporción */
+  width: auto;
+  height: 4rem;
+
   transition: 0.3s ease;
 }
 

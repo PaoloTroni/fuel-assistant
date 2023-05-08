@@ -80,7 +80,7 @@ export function printResults(userFormData, dataProcessed, selectedCountry) {
   const notaAPI = document.createElement("p");
   notes.appendChild(notaAPI);
   notaAPI.innerHTML = `
-   Estos datos están disponibles gracias a la API elaborada por Miguel Colmenero. Más info en este enlace:
+   Los datos están disponibles gracias a la API elaborada por Miguel Colmenero. Más info en este enlace:
     <a href="https://miguelangelcolmenero.eu/proyectos/combustible/api.html" target="_blank">
       miguelangelcolmenero.eu/proyectos/combustible/api.html
     </a>

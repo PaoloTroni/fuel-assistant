@@ -5,7 +5,7 @@ export const createHeaderButtons = (header, principalButtons) => {
 
   //botón que nos dirige al apartado de calcular la media de consumo
   const btnAvgFuelCalculator = document.createElement("button");
-  btnAvgFuelCalculator.textContent = "Calcula tus consumos medios y tus gastos";
+  btnAvgFuelCalculator.textContent = "Controla tus consumos";
 
   //botón que nos dirige al apartado de búsqueda de gasolineras
   const btnSearchFuelStation = document.createElement("button");
@@ -13,8 +13,7 @@ export const createHeaderButtons = (header, principalButtons) => {
 
   //botón que nos dirige al apartado de calcular la media de consumo
   const btnUeFuelCalculator = document.createElement("button");
-  btnUeFuelCalculator.textContent =
-    "Calcula tus gastos de combustible en Europa";
+  btnUeFuelCalculator.textContent = "Calcula tus gastos en Europa";
 
   //ponemos el nav ".principalButtons" dentro del header
   header.appendChild(principalButtons);

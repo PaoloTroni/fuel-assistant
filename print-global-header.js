@@ -20,7 +20,7 @@ const principalButtons = document.createElement("nav"); //creamos la sección de
 //Ponemos los contenidos
 AVISO.innerHTML = `<span style="color: red">⚠️ ATENCIÓN: Página en desarrollo. Todavía en fase alfa. ⚠️</span>`; //ESO HAY QUE SACARLO DESPUES!!!!
 slogan.textContent =
-  "¡Ahorra tiempo, dinero y controla los consumos de gasolina!";
+  "¡Ahorra tiempo, dinero y controla los consumos de combustible!";
 
 h1.innerHTML = `<a href="/index.html"><img class="logo" src="/images/logo.png" alt="logo fuel assistant" /></a>
 <span class="oculto">Fuel Assistant</span
